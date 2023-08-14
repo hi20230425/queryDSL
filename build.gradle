@@ -43,7 +43,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
 
-	// QueryDSL Setting 
+	// QueryDSL Setting (라이브러리) 
 		// Querydsl 추가 : spring 3.0 , jdk 17
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
 	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
@@ -56,6 +56,9 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+// queryDSL Setting
+
+//Q클래스, Q도메인 : @Entity 클래스이름앞에 Q클래스가 자동으로 생성될 위치 
 def querydslDir = "$buildDir/generated/querydsl"
 
 sourceSets {
@@ -66,6 +69,7 @@ tasks.withType(JavaCompile) {
 	options.generatedSourceOutputDirectory = file(querydslDir)
 }
 
+// Q클래스 삭제 : 원본(Entity 클래스가) 이 수정 변경이 되면 삭제후 새로 생성해야함. 
 clean.doLast {
 	file(querydslDir).deleteDir()
 }
